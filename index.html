@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WeCode V6 - site main</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+<style>
+  * {
+    margin:0; padding:0; box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html, body {
+    height: 100%;
+    background: linear-gradient(135deg, #050a14, #000a1a);
+    font-family: 'Orbitron', sans-serif;
+    color: #0ff;
+    overflow-x: hidden;
+    perspective: 1300px;
+  }
+
+  header {
+    padding: 6rem 1rem 4rem;
+    text-align: center;
+    user-select: none;
+    position: relative;
+    z-index: 10;
+  }
+  header h1 {
+    font-size: 6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #0ff;
+    text-shadow:
+      0 0 8px #0ff,
+      0 0 18px #0ff,
+      0 0 35px #00ffffbb;
+    position: relative;
+    animation: rotate3d 8s linear infinite;
+    transform-style: preserve-3d;
+  }
+  header h1::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    color: transparent;
+    text-shadow:
+      1px 1px 5px #00fff7aa,
+      -1px -1px 5px #00fff7aa;
+    filter: blur(2px);
+    opacity: 0.7;
+  }
+
+  @keyframes rotate3d {
+    0%   { transform: rotateX(0deg) rotateY(0deg); }
+    25%  { transform: rotateX(5deg) rotateY(15deg); }
+    50%  { transform: rotateX(0deg) rotateY(30deg); }
+    75%  { transform: rotateX(-5deg) rotateY(15deg); }
+    100% { transform: rotateX(0deg) rotateY(0deg); }
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto 6rem;
+    padding: 0 1rem;
+  }
+  section {
+    background: #08101f;
+    border-radius: 24px;
+    margin-bottom: 3.5rem;
+    padding: 3rem 2.5rem;
+    box-shadow:
+      0 0 30px #00ffff44,
+      inset 0 0 40px #007f7f66;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  section h2 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #0ff;
+    text-shadow:
+      0 0 8px #0ff,
+      0 0 18px #00ffffcc;
+  }
+  section p, section li {
+    font-size: 1.4rem;
+    line-height: 2.4;
+    color: #a0f9ffcc;
+    text-shadow: 0 0 4px #00444d44;
+  }
+  ul {
+    list-style-type: square;
+    padding-left: 2.5rem;
+    margin-top: 1rem;
+  }
+
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  .feature {
+    background: linear-gradient(145deg, #061722, #0a2a3d);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    flex: 1 1 300px;
+    box-shadow:
+      0 0 50px #00ffff99,
+      inset 0 0 50px #00bfff88;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+    cursor: default;
+    perspective: 900px;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature h3 {
+    font-size: 2rem;
+    color: #00f9ff;
+    margin-bottom: 1rem;
+    text-shadow:
+      0 0 10px #00f9ff,
+      0 0 20px #00cfff,
+      0 0 30px #00bfff;
+    transition: color 0.3s ease;
+  }
+  .feature p {
+    color: #c6ffffcc;
+    text-shadow: 0 0 4px #00334088;
+  }
+  .feature:hover {
+    box-shadow:
+      0 0 80px #00ffffcc,
+      inset 0 0 70px #00e0ffcc;
+    transform: scale(1.08);
+    z-index: 10;
+  }
+
+  /* 3D tilt effect */
+  .feature::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .feature:hover::before {
+    opacity: 1;
+  }
+
+  footer {
+    text-align: center;
+    padding: 5rem 1rem;
+    font-size: 1rem;
+    color: #004444;
+    border-top: 1px solid #004444;
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 data-text="WECODE">WECODE</h1>
+</header>
+
+<main>
+  <section>
+    <h2>🌟 우리에 대해</h2>
+    <p>WeCode는 초등학교 6학년 두 명이 만든 작은 기업이지만, 그 비전은 거대합니다. 우리는 기술을 통해 사람들을 진짜로 행복하게 만들고 싶습니다.</p>
+    <div class="features">
+      <div class="feature" data-tilt>
+        <h3>💡 인간 중심 사고</h3>
+        <p>기술보다 앞서는 건 언제나 사람입니다. 모든 프로젝트의 시작은 사용자의 이야기입니다.</p>
+      </div>
+      <div class="feature" data-tilt>
+        <h3>🌍 모두를 위한 접근성</h3>
+        <p>노인, 어린이, 장애인, 저사양 환경 — WeCode는 모든 상황에서도 작동하는 기술을 고민합니다.</p>
+      </div>
+      <div class="feature" data-tilt>
+        <h3>🚀 작고 빠른 실행력</h3>
+        <p>우리는 거창한 계획보다 작게 시작해 빠르게 실현하고 반복합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>🚧 철학과 가치</h2>
+    <ul>
+      <li>기술은 도구일 뿐, 사람을 위한 마음이 먼저입니다.</li>
+      <li>쉬운 기술, 모두를 위한 기술</li>
+      <li>실패를 두려워하지 않는 태도</li>
+      <li>재미있고 간단하지만 강력한 코드</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🧪 실험하는 정신</h2>
+    <p>WeCode는 매주 실험합니다. 게임 만들기, 앱 만들기, 웹사이트 테스트, 직접 서버 구축…</p>
+    <p>코딩을 통해 배우고, 배우는 걸 다시 공유합니다.</p>
+  </section>
+
+  <section>
+    <h2>🎨 디자인 감각</h2>
+    <p>우리는 넥슨처럼 멋지고, 또 다르게 독특한 감성을 추구합니다.</p>
+    <ul>
+      <li>누구나 좋아할만한 디자인</li>
+      <li>아름다운 색채</li>
+      <li>알맞는 디자인</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📬 우리에게 연락하세요</h2>
+    <p>아이디어가 있나요? 우리랑 같이 만들고 싶나요?</p>
+    <p>📧 wecode@gmail.com</p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 WeCode | 초6 둘이 만든 진짜 간지나는 기업 😎
+</footer>
+
+<script>
+  // 스크롤 애니메이션
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+  // 3D tilt 효과
+  const features = document.querySelectorAll('.feature[data-tilt]');
+  features.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * 12;
+      const rotateY = ((x - centerX) / centerX) * 12;
+      card.style.transform = `scale(1.1) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+      card.style.transition = 'transform 0.1s ease';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'scale(1) rotateX(0) rotateY(0)';
+      card.style.transition = 'transform 0.6s ease';
+    });
+  });
+</script>
+
+</body>
+</html>
