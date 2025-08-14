@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeCode V9 - 메인 사이트</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Orbitron',sans-serif; }
+  body { background: linear-gradient(135deg,#050a14,#000a1a); color:#0ff; transition:0.5s; }
+  body.light { background: linear-gradient(135deg,#e3f4ff,#ffffff); color:#004466; }
+
+  header { text-align:center; padding:3rem 1rem; }
+  header h1 { font-size:4rem; color:#0ff; text-shadow:0 0 8px #0ff,0 0 18px #00ffffbb; }
+  #theme-toggle { margin-top:1rem; padding:0.7rem 1.5rem; border:none; border-radius:10px; cursor:pointer; background:#00ffff22; color:#0ff; transition:0.3s; }
+  body.light #theme-toggle { background:#0077aa33; color:#005577; }
+
+  main { max-width:1100px; margin:2rem auto; padding:0 1rem; }
+  section { background:#08101f; border-radius:20px; padding:2rem; margin-bottom:2rem; box-shadow:0 0 30px #00ffff44; }
+  body.light section { background:#e9f5ff; box-shadow:0 0 15px #0077aa33; color:#004466; }
+
+  section h2 { font-size:2.5rem; text-align:center; margin-bottom:1rem; }
+  section p, section li { font-size:1.2rem; line-height:1.8; }
+  ul { padding-left:1.5rem; margin-top:0.5rem; }
+
+  .download-btn { display:inline-block; padding:1rem 2rem; margin:1rem auto; background:#00ffff33; color:#0ff; border-radius:12px; font-weight:bold; cursor:pointer; text-decoration:none; transition:0.3s; }
+  .download-btn:hover { background:#00ffff55; }
+  body.light .download-btn { background:#0077aa33; color:#005577; }
+  body.light .download-btn:hover { background:#005577; color:#e0f0ff; }
+
+  #chat-section { background:#0a1b2a; padding:1.5rem; border-radius:20px; box-shadow:0 0 40px #00ffff55; margin-bottom:2rem; }
+  body.light #chat-section { background:#dbeeff; color:#004466; box-shadow:0 0 30px #0077aa55; }
+
+  #chat-box { background:#03131f; color:#0ff; height:250px; overflow-y:auto; padding:1rem; border-radius:10px; margin-bottom:1rem; display:flex; flex-direction:column; gap:0.5rem; }
+  body.light #chat-box { background:#fff; color:#004466; }
+
+  #chat-form { display:flex; gap:0.5rem; }
+  #chat-input { flex:1; padding:0.7rem; border-radius:8px; border:1px solid #00ffff77; background:#021017; color:#0ff; }
+  body.light #chat-input { background:#f0f9ff; color:#004466; border:1px solid #0077aa88; }
+
+  #chat-submit { padding:0 1.2rem; border:none; border-radius:8px; background:#00ffffcc; color:#001010; font-weight:bold; cursor:pointer; }
+  #chat-submit:hover { background:#00ffffee; }
+
+  footer { text-align:center; padding:3rem 1rem; font-size:1rem; border-top:1px solid #004444; }
+  body.light footer { border-color:#003355; color:#003355; }
+
+  @media (max-width:720px){
+    header h1 { font-size:2.8rem; }
+    section h2 { font-size:1.8rem; }
+  }
+
+  .chat-message { padding:0.5rem 1rem; border-radius:10px; max-width:90%; line-height:1.4; word-break:break-word; }
+  .user-message { background:#00ffff55; color:#001010; align-self:flex-end; font-weight:bold; }
+  body.light .user-message { background:#0077aa44; color:#e0f0ff; }
+  .bot-message { background:#003344bb; color:#a0f9ff; font-style:italic; align-self:flex-start; }
+  body.light .bot-message { background:#a0c8e8cc; color:#004466; font-style:normal; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>WECODE</h1>
+  <button id="theme-toggle">🌙 다크 모드</button>
+</header>
+
+<main>
+  <section>
+    <h2>🌟 우리에 대해</h2>
+    <p>WeCode는 초등 6학년 두 명이 만든 작은 기업이지만, 그 비전은 거대합니다. 기술로 사람들을 행복하게 합니다.</p>
+    <a class="download-btn" href="https://lim-777.github.io/wecode-site/files.zip" download>🏓 PingPong + 모든 파일 다운로드</a>
+  </section>
+
+  <section id="chat-section">
+    <h2>🤖 WeCode AI 챗</h2>
+    <div id="chat-box"></div>
+    <form id="chat-form">
+      <input type="text" id="chat-input" placeholder="질문을 입력하세요..." autocomplete="off">
+      <button type="submit" id="chat-submit">전송</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>🚧 철학과 가치</h2>
+    <ul>
+      <li>기술보다 사람이 먼저</li>
+      <li>쉬운 기술, 모두를 위한 기술</li>
+      <li>실패를 두려워하지 않는 태도</li>
+      <li>간단하지만 강력한 코드</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 WeCode All rights reserved.
+</footer>
+
+<script>
+  // 테마 토글
+  const bodyEl = document.body;
+  const themeBtn = document.getElementById('theme-toggle');
+  themeBtn.addEventListener('click', ()=>{
+    bodyEl.classList.toggle('light');
+    themeBtn.textContent = bodyEl.classList.contains('light') ? '☀️ 라이트 모드' : '🌙 다크 모드';
+  });
+
+  // AI 챗 타이핑 효과
+  const chatBox = document.getElementById('chat-box');
+  const chatForm = document.getElementById('chat-form');
+  const chatInput = document.getElementById('chat-input');
+
+  function generateBotReply(text){
+    const t = text.toLowerCase().trim();
+    if(!t) return "질문을 입력해주세요!";
+    if(/안녕|hi|hello/.test(t)) return "안녕하세요! WeCode AI 챗입니다. 무엇을 도와드릴까요?";
+    if(/문의|질문|help/.test(t)) return "궁금한 점을 구체적으로 말씀해 주세요!";
+    if(/테마|다크|라이트/.test(t)) return "우측 상단 '테마 전환' 버튼으로 변경할 수 있습니다.";
+    return "죄송해요, 아직 배우는 중이라 정확한 답변을 못 드릴 수 있어요.";
+  }
+
+  async function typeText(element, text, speed=30){
+    element.textContent="";
+    for(let i=0;i<text.length;i++){
+      element.textContent+=text.charAt(i);
+      await new Promise(r=>setTimeout(r,speed));
+      chatBox.scrollTop=chatBox.scrollHeight;
+    }
+  }
+
+  chatForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const userText = chatInput.value.trim();
+    if(!userText) return;
+
+    const userMsg = document.createElement('div');
+    userMsg.className='chat-message user-message';
+    userMsg.textContent=userText;
+    chatBox.appendChild(userMsg);
+    chatBox.scrollTop=chatBox.scrollHeight;
+    chatInput.value='';
+    chatInput.disabled=true;
+
+    const botMsg = document.createElement('div');
+    botMsg.className='chat-message bot-message';
+    chatBox.appendChild(botMsg);
+    chatBox.scrollTop=chatBox.scrollHeight;
+
+    await new Promise(r=>setTimeout(r,500));
+
+    await typeText(botMsg,'🤖 '+generateBotReply(userText));
+    chatInput.disabled=false;
+    chatInput.focus();
+  });
+</script>
+
+</body>
+</html>
