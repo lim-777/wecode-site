@@ -1,156 +1,102 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>WeCode V8 - 메인 사이트</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeCode V9 - 메인 사이트</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Orbitron',sans-serif; }
-  html, body { height:100%; background:linear-gradient(135deg,#050a14,#000a1a); color:#0ff; transition:0.5s; overflow-x:hidden; }
-  body.light-mode { background:linear-gradient(135deg,#e3f4ff,#ffffff); color:#004466; }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Orbitron', sans-serif; }
+  body { background: linear-gradient(135deg,#050a14,#000a1a); color:#0ff; transition:0.5s; }
+  body.light-mode { background: linear-gradient(135deg,#e3f4ff,#ffffff); color:#004466; }
 
-  /* Loader */
-  #loader { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:bold; background:#000a1a; color:#0ff; z-index:9999; }
-
-  /* Header */
-  header { padding:4rem 1rem 3rem; text-align:center; position:relative; z-index:10; }
-  header h1 { font-size:5rem; letter-spacing:0.3em; text-transform:uppercase; color:#0ff; text-shadow:0 0 8px #0ff,0 0 18px #0ff,0 0 35px #00ffffbb; animation:rotate3d 8s linear infinite; }
-  header h1::before { content:attr(data-text); position:absolute; top:0; left:0; right:0; bottom:0; color:transparent; text-shadow:1px 1px 5px #00fff7aa,-1px -1px 5px #00fff7aa; filter:blur(2px); opacity:0.7; }
+  header { text-align:center; padding:4rem 1rem 3rem; }
+  header h1 { font-size:5rem; letter-spacing:0.3em; text-shadow:0 0 8px #0ff,0 0 18px #0ff,0 0 35px #00ffffbb; }
   body.light-mode header h1 { color:#0077aa; text-shadow:none; }
-  #theme-toggle { margin-top:1.8rem; padding:0.9rem 2rem; border-radius:12px; border:none; font-weight:bold; background:#00ffff22; color:#0ff; cursor:pointer; box-shadow:0 0 15px #00ffffaa; transition:0.3s; }
+
+  #theme-toggle { margin-top:1.5rem; padding:0.8rem 2rem; border:none; border-radius:12px; background:#00ffff22; color:#0ff; cursor:pointer; font-weight:bold; transition:0.3s; }
   #theme-toggle:hover { background:#00ffff55; }
-  body.light-mode #theme-toggle { background:#0077aa33; color:#005577; box-shadow:0 0 15px #0077aaaa; }
-
-  #greeting { margin-top:1rem; font-size:1.4rem; }
-
-  /* 다운로드 버튼 */
-  .download-button { display:inline-block; margin-top:1.5rem; padding:1rem 2rem; font-weight:bold; font-size:1.2rem; color:#0ff; background:linear-gradient(135deg,#00ffff55,#00bfff44); border-radius:14px; text-decoration:none; box-shadow:0 0 20px #00ffffaa; transition:0.3s; }
-  .download-button:hover { transform:scale(1.08); background:linear-gradient(135deg,#00ffff77,#00bfff66); box-shadow:0 0 35px #00ffffcc; }
-  body.light-mode .download-button { background:linear-gradient(135deg,#0077aa55,#00557744); color:#e0f0ff; box-shadow:0 0 20px #0077aaaa; }
-  body.light-mode .download-button:hover { background:linear-gradient(135deg,#0077aa77,#00557766); box-shadow:0 0 35px #0077aacc; }
-
-  @keyframes rotate3d { 0%{transform:rotateX(0) rotateY(0);}25%{transform:rotateX(5deg) rotateY(15deg);}50%{transform:rotateX(0) rotateY(30deg);}75%{transform:rotateX(-5deg) rotateY(15deg);}100%{transform:rotateX(0) rotateY(0);} }
+  body.light-mode #theme-toggle { background:#0077aa33; color:#005577; }
 
   main { max-width:1100px; margin:0 auto 6rem; padding:0 1rem; }
-  section { background:#08101f; border-radius:24px; margin-bottom:3.5rem; padding:3rem 2.5rem; box-shadow:0 0 30px #00ffff44,inset 0 0 40px #007f7f66; transition:0.5s; }
-  body.light-mode section { background:#e9f5ff; box-shadow:0 0 15px #0077aa33,inset 0 0 25px #0077aa44; }
+  section { background:#08101f; border-radius:24px; padding:3rem 2.5rem; margin-bottom:3.5rem; box-shadow:0 0 30px #00ffff44, inset 0 0 40px #007f7f66; }
+  body.light-mode section { background:#e9f5ff; box-shadow:0 0 15px #0077aa33, inset 0 0 25px #0077aa44; }
+
   section h2 { font-size:2.8rem; text-align:center; margin-bottom:2rem; color:#0ff; text-shadow:0 0 8px #0ff,0 0 18px #00ffffcc; }
   body.light-mode section h2 { color:#004466; text-shadow:none; }
-  section p, section li { font-size:1.3rem; line-height:2; color:#a0f9ffcc; text-shadow:0 0 4px #00444d44; }
-  body.light-mode section p, body.light-mode section li { color:#004466cc; text-shadow:none; }
-  ul { list-style:square; padding-left:2.5rem; margin-top:1rem; }
+  section p, section li { font-size:1.3rem; line-height:2; color:#a0f9ffcc; }
+  body.light-mode section p, body.light-mode section li { color:#004466cc; }
 
-  /* Features */
   .features { display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; margin-top:2rem; }
-  .feature { background:linear-gradient(145deg,#061722,#0a2a3d); border-radius:20px; padding:2.2rem 1.8rem; flex:1 1 300px; box-shadow:0 0 50px #00ffff99,inset 0 0 50px #00bfff88; transition:0.3s; cursor:default; }
-  .feature:hover { box-shadow:0 0 80px #00ffffcc,inset 0 0 70px #00e0ffcc; transform:scale(1.08); }
-  .feature h3 { font-size:1.9rem; color:#00f9ff; margin-bottom:1rem; text-shadow:0 0 10px #00f9ff,0 0 20px #00cfff,0 0 30px #00bfff; }
-  .feature p { color:#c6ffffcc; text-shadow:0 0 4px #00334088; }
-  body.light-mode .feature { background:#d6e7ff; color:#003355; box-shadow:0 0 30px #0077aa66,inset 0 0 25px #0077aa55; }
-  body.light-mode .feature h3 { color:#005577; text-shadow:none; }
-  body.light-mode .feature p { color:#003355cc; text-shadow:none; }
+  .feature { background: linear-gradient(145deg,#061722,#0a2a3d); border-radius:20px; padding:2.2rem 1.8rem; flex:1 1 300px; box-shadow:0 0 50px #00ffff99, inset 0 0 50px #00bfff88; transition:0.3s; }
+  .feature:hover { transform:scale(1.08); box-shadow:0 0 80px #00ffffcc, inset 0 0 70px #00e0ffcc; }
+  .feature h3 { font-size:1.9rem; margin-bottom:1rem; color:#00f9ff; text-shadow:0 0 10px #00f9ff,0 0 20px #00cfff,0 0 30px #00bfff; }
+  .feature p { color:#c6ffffcc; }
 
-  /* Contact */
-  .contact-form { max-width:600px; margin:2rem auto 0; display:flex; flex-direction:column; gap:1.2rem; }
-  .contact-form input,.contact-form textarea { padding:1rem 1.4rem; font-size:1.1rem; background:#03131f; border:1px solid #00ffff55; color:#0ff; border-radius:12px; outline:none; box-shadow:inset 0 0 20px #00444455; transition:0.3s; }
-  .contact-form input:focus,.contact-form textarea:focus { box-shadow:0 0 12px #00ffffcc; }
-  body.light-mode .contact-form input,.contact-form textarea { background:#fff; color:#004466; border:1px solid #0077aa88; box-shadow:inset 0 0 15px #0077aa33; }
-  .contact-form button { background:linear-gradient(135deg,#00ffff,#007fff); color:#000; padding:1rem; font-weight:bold; border:none; border-radius:14px; cursor:pointer; transition:0.3s; }
-  .contact-form button:hover { transform:scale(1.05); }
-  body.light-mode .contact-form button { background:linear-gradient(135deg,#0077aa,#004466); color:#fff; }
+  .download-button { display:inline-block; margin:1rem auto; padding:1rem 2rem; font-size:1.2rem; font-weight:bold; border-radius:12px; background:#00ffff22; color:#0ff; cursor:pointer; text-decoration:none; box-shadow:0 0 15px #00ffffaa; transition:0.3s; }
+  .download-button:hover { background:#00ffff55; }
+  body.light-mode .download-button { background:#0077aa33; color:#e0f0ff; box-shadow:0 0 15px #0077aaaa; }
 
-  /* Footer */
-  footer { text-align:center; padding:4rem 1rem 5rem; font-size:1rem; color:#004444; border-top:1px solid #004444; }
+  footer { text-align:center; padding:4rem 1rem 5rem; font-size:1rem; border-top:1px solid #004444; color:#004444; }
   body.light-mode footer { color:#003355; border-color:#003355; }
 
-  /* Chat */
-  #chat-section { background:#0a1b2a; border-radius:24px; padding:2rem; box-shadow:0 0 40px #00ffff55,inset 0 0 50px #0099cc88; margin-bottom:3.5rem; color:#0ff; }
-  body.light-mode #chat-section { background:#dbeeff; color:#004466; box-shadow:0 0 30px #0077aa55,inset 0 0 30px #0077aa44; }
-  #chat-box { background:#03131f; color:#0ff; border-radius:12px; padding:1rem; height:280px; overflow-y:auto; font-family:'Orbitron',monospace; box-shadow:inset 0 0 20px #00ffff88; margin-bottom:1.4rem; white-space:pre-wrap; }
-  body.light-mode #chat-box { background:#fff; color:#004466; box-shadow:inset 0 0 15px #0077aa44; }
-  #chat-form { display:flex; gap:0.6rem; }
-  #chat-input { flex-grow:1; padding:0.8rem 1rem; font-size:1.15rem; border-radius:10px; border:1px solid #00ffff77; background:#021017; color:#0ff; }
-  body.light-mode #chat-input { background:#f0f9ff; color:#004466; border:1px solid #0077aa88; }
-
-  #chat-submit { background:#00ffffcc; color:#001010; font-weight:bold; border-radius:10px; border:none; padding:0 1.5rem; cursor:pointer; font-size:1.15rem; transition:0.2s; }
-  #chat-submit:hover { transform:scale(1.1); background:#00ffffee; }
-  body.light-mode #chat-submit { background:#0077aacc; color:#e0f0ff; }
+  @media(max-width:720px){ header h1{font-size:3.5rem;} section h2{font-size:2rem;} .feature{flex:1 1 100%;} main{padding:0 0.7rem;} }
 </style>
 </head>
 <body>
-
-<div id="loader">WeCode 로딩 중...</div>
-
 <header>
-  <h1 data-text="WECODE">WECODE</h1>
-  <button id="theme-toggle" aria-label="테마 전환 버튼" aria-pressed="false">🌙 다크 모드</button>
-  <p id="greeting" aria-live="polite" role="status"></p>
-  <a id="download-btn" href="files/wecode-pingpong.zip" download class="download-button" aria-label="WECODE 핑퐁 다운로드">🕹️ WECODE 핑퐁 다운로드</a>
+  <h1>WECODE</h1>
+  <button id="theme-toggle">🌙 다크 모드</button>
 </header>
 
 <main>
-  <section tabindex="0" aria-label="우리에 대해">
+  <section>
     <h2>🌟 우리에 대해</h2>
     <p>WeCode는 초등학교 6학년 두 명이 만든 작은 기업이지만, 그 비전은 거대합니다. 우리는 기술을 통해 사람들을 진짜로 행복하게 만들고 싶습니다.</p>
     <div class="features">
-      <article class="feature" tabindex="0" aria-label="인간 중심 사고">
+      <article class="feature">
         <h3>💡 인간 중심 사고</h3>
         <p>기술보다 앞서는 건 언제나 사람입니다. 모든 프로젝트의 시작은 사용자의 이야기입니다.</p>
       </article>
-      <article class="feature" tabindex="0" aria-label="모두를 위한 접근성">
+      <article class="feature">
         <h3>🌍 모두를 위한 접근성</h3>
         <p>노인, 어린이, 장애인, 저사양 환경 — WeCode는 모든 상황에서도 작동하는 기술을 고민합니다.</p>
       </article>
-      <article class="feature" tabindex="0" aria-label="작고 빠른 실행력">
+      <article class="feature">
         <h3>🚀 작고 빠른 실행력</h3>
         <p>우리는 거창한 계획보다 작게 시작해 빠르게 실현하고 반복합니다.</p>
       </article>
     </div>
-  </section>
-
-  <section tabindex="0" aria-label="AI 채팅 봇">
-    <h2>🤖 WeCode AI 챗</h2>
-    <div id="chat-box" role="log" aria-live="polite" aria-relevant="additions"></div>
-    <form id="chat-form" aria-label="AI 채팅 입력 폼">
-      <input type="text" id="chat-input" autocomplete="off" placeholder="여기에 질문을 입력하세요..." aria-label="채팅 입력창" />
-      <button type="submit" id="chat-submit" aria-label="메시지 전송 버튼">전송</button>
-    </form>
-  </section>
-
-  <section tabindex="0" aria-label="문의하기">
-    <h2>📩 문의하기</h2>
-    <form class="contact-form" aria-label="문의 폼">
-      <input type="text" placeholder="이름" aria-label="이름 입력" required />
-      <input type="email" placeholder="이메일" aria-label="이메일 입력" required />
-      <textarea placeholder="문의 내용" rows="4" aria-label="문의 내용 입력" required></textarea>
-      <button type="submit" aria-label="문의 전송 버튼">보내기</button>
-    </form>
+    <a href="#" class="download-button" id="download-btn">🕹️ WECODE 핑퐁 다운로드</a>
   </section>
 </main>
 
-<footer>&copy; 2025 WeCode All rights reserved.</footer>
+<footer>
+  &copy; 2025 WeCode All rights reserved.
+</footer>
 
 <script>
-  // Loader
-  window.addEventListener('load',()=>{const loader=document.getElementById('loader');loader.style.opacity='0';setTimeout(()=>loader.style.display='none',600);});
+  const themeBtn = document.getElementById('theme-toggle');
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    themeBtn.textContent = document.body.classList.contains('light-mode') ? '☀️ 라이트 모드' : '🌙 다크 모드';
+  });
 
-  // Theme
-  const themeBtn=document.getElementById('theme-toggle');const body=document.body;
-  function updateThemeUI(isDark){if(isDark){body.classList.remove('light-mode');themeBtn.textContent='🌙 다크 모드';themeBtn.setAttribute('aria-pressed','false');}else{body.classList.add('light-mode');themeBtn.textContent='☀️ 라이트 모드';themeBtn.setAttribute('aria-pressed','true');}}
-  const saved=localStorage.getItem('wecode-theme');updateThemeUI(saved!=='light');
-  themeBtn.addEventListener('click',()=>{const isLight=body.classList.toggle('light-mode');localStorage.setItem('wecode-theme',isLight?'light':'dark');updateThemeUI(!isLight);});
-
-  // Greeting
-  const greetingEl=document.getElementById('greeting');
-  const hour=(new Date()).getHours();greetingEl.textContent=hour>=5&&hour<12?'좋은 아침입니다! ☀️':hour>=12&&hour<18?'좋은 오후입니다! 🌤️':hour>=18&&hour<22?'좋은 저녁입니다! 🌙':'늦은 밤까지 수고 많으세요! 🌌';
-
-  // Chatbot
-  const chatBox=document.getElementById('chat-box');
-  const chatForm=document.getElementById('chat-form');
-  const chatInput=document.getElementById('chat-input');
-  function generateBotReply(text){const t=text.toLowerCase().trim();if(!t)return "질문을 입력해 주세요!";if(/(안녕|hi|hello|헬로|하이)/.test(t))return "안녕하세요! WeCode AI 챗입니다! 😊";if(/(잘가|bye|바이)/.test(t))return "안녕히 가세요! 👋";return "죄송해요, 그 부분은 아직 배우는 중이에요. 🙏";}
-  chatForm.addEventListener('submit',e=>{e.preventDefault();const userMsg=chatInput.value.trim();if(!userMsg)return;chatBox.innerHTML+=`💬 ${userMsg}\n`;chatInput.value='';setTimeout(()=>{const reply=generateBotReply(userMsg);chatBox.innerHTML+=`🤖 ${reply}\n`;chatBox.scrollTop=chatBox.scrollHeight;},400);});
+  // 다운로드 버튼
+  document.getElementById('download-btn').addEventListener('click', function(e){
+    e.preventDefault();
+    // 여기에 실제 핑퐁 exe/zip 바이너리를 넣으면 됨
+    const content = "WECODE PingPong 실행 파일 내용 테스트!";
+    const blob = new Blob([content], {type: 'application/octet-stream'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'wecode-pingpong.exe'; // 실제 exe로 변경 가능
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
 </script>
 </body>
 </html>
