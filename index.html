@@ -6,461 +6,87 @@
 <title>WeCode V8 - 메인 사이트</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
 <style>
-  /* Reset */
-  * {
-    margin:0; padding:0; box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  html, body {
-    height: 100%;
-    font-family: 'Orbitron', sans-serif;
-    background: linear-gradient(135deg, #050a14, #000a1a);
-    color: #0ff;
-    overflow-x: hidden;
-    transition: background 0.5s ease, color 0.5s ease;
-  }
-  body.light-mode {
-    background: linear-gradient(135deg, #e3f4ff, #ffffff);
-    color: #004466;
-  }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Orbitron',sans-serif; }
+  html, body { height:100%; background:linear-gradient(135deg,#050a14,#000a1a); color:#0ff; transition:0.5s; overflow-x:hidden; }
+  body.light-mode { background:linear-gradient(135deg,#e3f4ff,#ffffff); color:#004466; }
 
   /* Loader */
-  #loader {
-    position: fixed;
-    inset: 0;
-    background: #000a1a;
-    color: #0ff;
-    font-size: 1.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    font-weight: bold;
-    user-select: none;
-  }
-
-  /* Notice Bar */
-  .notice-bar {
-    background: #000;
-    color: #00ffff;
-    padding: 1rem;
-    font-weight: 700;
-    text-align: center;
-    border-bottom: 1px solid #00ffff44;
-    box-shadow: 0 2px 15px #00ffff55;
-    font-size: 1.2rem;
-  }
-  body.light-mode .notice-bar {
-    background: #d1e9ff;
-    color: #0077aa;
-    border-color: #0077aa55;
-    box-shadow: 0 2px 15px #0077aa55;
-  }
+  #loader { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:bold; background:#000a1a; color:#0ff; z-index:9999; }
 
   /* Header */
-  header {
-    padding: 4rem 1rem 3rem;
-    text-align: center;
-    user-select: none;
-    position: relative;
-    z-index: 10;
-  }
-  header h1 {
-    font-size: 5rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: #0ff;
-    text-shadow:
-      0 0 8px #0ff,
-      0 0 18px #0ff,
-      0 0 35px #00ffffbb;
-    animation: rotate3d 8s linear infinite;
-    transform-style: preserve-3d;
-  }
-  header h1::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    color: transparent;
-    text-shadow: 1px 1px 5px #00fff7aa, -1px -1px 5px #00fff7aa;
-    filter: blur(2px);
-    opacity: 0.7;
-  }
-  body.light-mode header h1 {
-    color: #0077aa;
-    text-shadow: none;
-  }
-  #theme-toggle {
-    margin-top: 1.8rem;
-    padding:0.9rem 2rem;
-    border-radius:12px;
-    border:none;
-    font-weight:bold;
-    background:#00ffff22;
-    color:#0ff;
-    box-shadow:0 0 15px #00ffffaa;
-    cursor:pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-    user-select:none;
-  }
-  #theme-toggle:hover {
-    background: #00ffff55;
-  }
-  body.light-mode #theme-toggle {
-    background:#0077aa33;
-    color:#005577;
-    box-shadow:0 0 15px #0077aaaa;
-  }
+  header { padding:4rem 1rem 3rem; text-align:center; position:relative; z-index:10; }
+  header h1 { font-size:5rem; letter-spacing:0.3em; text-transform:uppercase; color:#0ff; text-shadow:0 0 8px #0ff,0 0 18px #0ff,0 0 35px #00ffffbb; animation:rotate3d 8s linear infinite; }
+  header h1::before { content:attr(data-text); position:absolute; top:0; left:0; right:0; bottom:0; color:transparent; text-shadow:1px 1px 5px #00fff7aa,-1px -1px 5px #00fff7aa; filter:blur(2px); opacity:0.7; }
+  body.light-mode header h1 { color:#0077aa; text-shadow:none; }
+  #theme-toggle { margin-top:1.8rem; padding:0.9rem 2rem; border-radius:12px; border:none; font-weight:bold; background:#00ffff22; color:#0ff; cursor:pointer; box-shadow:0 0 15px #00ffffaa; transition:0.3s; }
+  #theme-toggle:hover { background:#00ffff55; }
+  body.light-mode #theme-toggle { background:#0077aa33; color:#005577; box-shadow:0 0 15px #0077aaaa; }
 
-  #greeting {
-    margin-top:1rem;
-    font-size:1.4rem;
-  }
+  #greeting { margin-top:1rem; font-size:1.4rem; }
 
-  @keyframes rotate3d {
-    0%   { transform: rotateX(0deg) rotateY(0deg); }
-    25%  { transform: rotateX(5deg) rotateY(15deg); }
-    50%  { transform: rotateX(0deg) rotateY(30deg); }
-    75%  { transform: rotateX(-5deg) rotateY(15deg); }
-    100% { transform: rotateX(0deg) rotateY(0deg); }
-  }
+  /* 다운로드 버튼 */
+  .download-button { display:inline-block; margin-top:1.5rem; padding:1rem 2rem; font-weight:bold; font-size:1.2rem; color:#0ff; background:linear-gradient(135deg,#00ffff55,#00bfff44); border-radius:14px; text-decoration:none; box-shadow:0 0 20px #00ffffaa; transition:0.3s; }
+  .download-button:hover { transform:scale(1.08); background:linear-gradient(135deg,#00ffff77,#00bfff66); box-shadow:0 0 35px #00ffffcc; }
+  body.light-mode .download-button { background:linear-gradient(135deg,#0077aa55,#00557744); color:#e0f0ff; box-shadow:0 0 20px #0077aaaa; }
+  body.light-mode .download-button:hover { background:linear-gradient(135deg,#0077aa77,#00557766); box-shadow:0 0 35px #0077aacc; }
 
-  /* Main & Sections */
-  main {
-    max-width: 1100px;
-    margin: 0 auto 6rem;
-    padding: 0 1rem;
-  }
-  section {
-    background: #08101f;
-    border-radius: 24px;
-    margin-bottom: 3.5rem;
-    padding: 3rem 2.5rem;
-    box-shadow:
-      0 0 30px #00ffff44,
-      inset 0 0 40px #007f7f66;
-    opacity: 1;
-    transform: none;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  body.light-mode section {
-    background: #e9f5ff;
-    box-shadow:
-      0 0 15px #0077aa33,
-      inset 0 0 25px #0077aa44;
-  }
-  section h2 {
-    font-size: 2.8rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #0ff;
-    text-shadow:
-      0 0 8px #0ff,
-      0 0 18px #00ffffcc;
-  }
-  body.light-mode section h2 {
-    color: #004466;
-    text-shadow: none;
-  }
-  section p, section li {
-    font-size: 1.3rem;
-    line-height: 2;
-    color: #a0f9ffcc;
-    text-shadow: 0 0 4px #00444d44;
-  }
-  body.light-mode section p, 
-  body.light-mode section li {
-    color: #004466cc;
-    text-shadow: none;
-  }
-  ul {
-    list-style-type: square;
-    padding-left: 2.5rem;
-    margin-top: 1rem;
-  }
+  @keyframes rotate3d { 0%{transform:rotateX(0) rotateY(0);}25%{transform:rotateX(5deg) rotateY(15deg);}50%{transform:rotateX(0) rotateY(30deg);}75%{transform:rotateX(-5deg) rotateY(15deg);}100%{transform:rotateX(0) rotateY(0);} }
 
-  /* Features cards */
-  .features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-  .feature {
-    background: linear-gradient(145deg, #061722, #0a2a3d);
-    border-radius: 20px;
-    padding: 2.2rem 1.8rem;
-    flex: 1 1 300px;
-    box-shadow:
-      0 0 50px #00ffff99,
-      inset 0 0 50px #00bfff88;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: default;
-    user-select:none;
-  }
-  .feature:hover,
-  .feature:focus-visible {
-    box-shadow:
-      0 0 80px #00ffffcc,
-      inset 0 0 70px #00e0ffcc;
-    transform: scale(1.08);
-    outline: none;
-  }
-  .feature h3 {
-    font-size: 1.9rem;
-    color: #00f9ff;
-    margin-bottom: 1rem;
-    text-shadow:
-      0 0 10px #00f9ff,
-      0 0 20px #00cfff,
-      0 0 30px #00bfff;
-  }
-  .feature p {
-    color: #c6ffffcc;
-    text-shadow: 0 0 4px #00334088;
-  }
-  body.light-mode .feature {
-    background: #d6e7ff;
-    color: #003355;
-    box-shadow:
-      0 0 30px #0077aa66,
-      inset 0 0 25px #0077aa55;
-  }
-  body.light-mode .feature h3 {
-    color: #005577;
-    text-shadow: none;
-  }
-  body.light-mode .feature p {
-    color: #003355cc;
-    text-shadow: none;
-  }
+  main { max-width:1100px; margin:0 auto 6rem; padding:0 1rem; }
+  section { background:#08101f; border-radius:24px; margin-bottom:3.5rem; padding:3rem 2.5rem; box-shadow:0 0 30px #00ffff44,inset 0 0 40px #007f7f66; transition:0.5s; }
+  body.light-mode section { background:#e9f5ff; box-shadow:0 0 15px #0077aa33,inset 0 0 25px #0077aa44; }
+  section h2 { font-size:2.8rem; text-align:center; margin-bottom:2rem; color:#0ff; text-shadow:0 0 8px #0ff,0 0 18px #00ffffcc; }
+  body.light-mode section h2 { color:#004466; text-shadow:none; }
+  section p, section li { font-size:1.3rem; line-height:2; color:#a0f9ffcc; text-shadow:0 0 4px #00444d44; }
+  body.light-mode section p, body.light-mode section li { color:#004466cc; text-shadow:none; }
+  ul { list-style:square; padding-left:2.5rem; margin-top:1rem; }
 
-  /* Contact Form */
-  .contact-form {
-    max-width: 600px;
-    margin: 2rem auto 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-  .contact-form input,
-  .contact-form textarea {
-    padding: 1rem 1.4rem;
-    font-size: 1.1rem;
-    background: #03131f;
-    border: 1px solid #00ffff55;
-    color: #0ff;
-    border-radius: 12px;
-    outline: none;
-    box-shadow: inset 0 0 20px #00444455;
-    transition: 0.3s ease;
-  }
-  .contact-form input:focus,
-  .contact-form textarea:focus {
-    box-shadow: 0 0 12px #00ffffcc;
-  }
-  body.light-mode .contact-form input,
-  body.light-mode .contact-form textarea {
-    background: #fff;
-    color: #004466;
-    border: 1px solid #0077aa88;
-    box-shadow: inset 0 0 15px #0077aa33;
-  }
-  .contact-form button {
-    background: linear-gradient(135deg, #00ffff, #007fff);
-    color: #000;
-    padding: 1rem;
-    font-weight: bold;
-    font-size: 1.15rem;
-    border: none;
-    border-radius: 14px;
-    box-shadow: 0 0 25px #00eaffaa;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    user-select:none;
-  }
-  .contact-form button:hover {
-    transform: scale(1.05);
-  }
-  body.light-mode .contact-form button {
-    background: linear-gradient(135deg, #0077aa, #004466);
-    color: #fff;
-    box-shadow: 0 0 20px #004466cc;
-  }
+  /* Features */
+  .features { display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; margin-top:2rem; }
+  .feature { background:linear-gradient(145deg,#061722,#0a2a3d); border-radius:20px; padding:2.2rem 1.8rem; flex:1 1 300px; box-shadow:0 0 50px #00ffff99,inset 0 0 50px #00bfff88; transition:0.3s; cursor:default; }
+  .feature:hover { box-shadow:0 0 80px #00ffffcc,inset 0 0 70px #00e0ffcc; transform:scale(1.08); }
+  .feature h3 { font-size:1.9rem; color:#00f9ff; margin-bottom:1rem; text-shadow:0 0 10px #00f9ff,0 0 20px #00cfff,0 0 30px #00bfff; }
+  .feature p { color:#c6ffffcc; text-shadow:0 0 4px #00334088; }
+  body.light-mode .feature { background:#d6e7ff; color:#003355; box-shadow:0 0 30px #0077aa66,inset 0 0 25px #0077aa55; }
+  body.light-mode .feature h3 { color:#005577; text-shadow:none; }
+  body.light-mode .feature p { color:#003355cc; text-shadow:none; }
+
+  /* Contact */
+  .contact-form { max-width:600px; margin:2rem auto 0; display:flex; flex-direction:column; gap:1.2rem; }
+  .contact-form input,.contact-form textarea { padding:1rem 1.4rem; font-size:1.1rem; background:#03131f; border:1px solid #00ffff55; color:#0ff; border-radius:12px; outline:none; box-shadow:inset 0 0 20px #00444455; transition:0.3s; }
+  .contact-form input:focus,.contact-form textarea:focus { box-shadow:0 0 12px #00ffffcc; }
+  body.light-mode .contact-form input,.contact-form textarea { background:#fff; color:#004466; border:1px solid #0077aa88; box-shadow:inset 0 0 15px #0077aa33; }
+  .contact-form button { background:linear-gradient(135deg,#00ffff,#007fff); color:#000; padding:1rem; font-weight:bold; border:none; border-radius:14px; cursor:pointer; transition:0.3s; }
+  .contact-form button:hover { transform:scale(1.05); }
+  body.light-mode .contact-form button { background:linear-gradient(135deg,#0077aa,#004466); color:#fff; }
 
   /* Footer */
-  footer {
-    text-align: center;
-    padding: 4rem 1rem 5rem;
-    font-size: 1rem;
-    color: #004444;
-    border-top: 1px solid #004444;
-    user-select: none;
-  }
-  body.light-mode footer {
-    color: #003355;
-    border-color: #003355;
-  }
+  footer { text-align:center; padding:4rem 1rem 5rem; font-size:1rem; color:#004444; border-top:1px solid #004444; }
+  body.light-mode footer { color:#003355; border-color:#003355; }
 
-  /* AI Chat Section */
-  #chat-section {
-    background: #0a1b2a;
-    border-radius: 24px;
-    padding: 2rem 2rem 3rem;
-    box-shadow:
-      0 0 40px #00ffff55,
-      inset 0 0 50px #0099cc88;
-    color: #0ff;
-    margin-bottom: 3.5rem;
-  }
-  body.light-mode #chat-section {
-    background: #dbeeff;
-    color: #004466;
-    box-shadow:
-      0 0 30px #0077aa55,
-      inset 0 0 30px #0077aa44;
-  }
+  /* Chat */
+  #chat-section { background:#0a1b2a; border-radius:24px; padding:2rem; box-shadow:0 0 40px #00ffff55,inset 0 0 50px #0099cc88; margin-bottom:3.5rem; color:#0ff; }
+  body.light-mode #chat-section { background:#dbeeff; color:#004466; box-shadow:0 0 30px #0077aa55,inset 0 0 30px #0077aa44; }
+  #chat-box { background:#03131f; color:#0ff; border-radius:12px; padding:1rem; height:280px; overflow-y:auto; font-family:'Orbitron',monospace; box-shadow:inset 0 0 20px #00ffff88; margin-bottom:1.4rem; white-space:pre-wrap; }
+  body.light-mode #chat-box { background:#fff; color:#004466; box-shadow:inset 0 0 15px #0077aa44; }
+  #chat-form { display:flex; gap:0.6rem; }
+  #chat-input { flex-grow:1; padding:0.8rem 1rem; font-size:1.15rem; border-radius:10px; border:1px solid #00ffff77; background:#021017; color:#0ff; }
+  body.light-mode #chat-input { background:#f0f9ff; color:#004466; border:1px solid #0077aa88; }
 
-  #chat-box {
-    background: #03131f;
-    color: #0ff;
-    border-radius: 12px;
-    padding: 1rem;
-    height: 280px;
-    overflow-y: auto;
-    font-family: 'Orbitron', monospace;
-    box-shadow: inset 0 0 20px #00ffff88;
-    margin-bottom: 1.4rem;
-    user-select: text;
-    white-space: pre-wrap;
-  }
-  body.light-mode #chat-box {
-    background: #fff;
-    color: #004466;
-    box-shadow: inset 0 0 15px #0077aa44;
-  }
-
-  #chat-form {
-    display: flex;
-    gap: 0.6rem;
-  }
-  #chat-input {
-    flex-grow: 1;
-    padding: 0.8rem 1rem;
-    font-size: 1.15rem;
-    border-radius: 10px;
-    border: 1px solid #00ffff77;
-    background: #021017;
-    color: #0ff;
-    outline: none;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  #chat-input::placeholder {
-    color: #00ccccaa;
-  }
-  #chat-input:focus {
-    box-shadow: 0 0 12px #00ffffcc;
-  }
-  body.light-mode #chat-input {
-    background: #f0f9ff;
-    color: #004466;
-    border: 1px solid #0077aa88;
-  }
-  body.light-mode #chat-input::placeholder {
-    color: #0077aa88;
-  }
-
-  #chat-submit {
-    background: #00ffffcc;
-    color: #001010;
-    font-weight: bold;
-    border-radius: 10px;
-    border: none;
-    padding: 0 1.5rem;
-    cursor: pointer;
-    font-size: 1.15rem;
-    box-shadow: 0 0 12px #00ffffcc;
-    transition: transform 0.2s ease, background 0.3s ease;
-    user-select:none;
-  }
-  #chat-submit:hover {
-    background: #00ffffee;
-    transform: scale(1.1);
-  }
-  body.light-mode #chat-submit {
-    background: #0077aacc;
-    color: #e0f0ff;
-    box-shadow: 0 0 12px #0077aacc;
-  }
-  body.light-mode #chat-submit:hover {
-    background: #005577;
-  }
-
-  /* Responsive */
-  @media (max-width: 720px) {
-    header h1 {
-      font-size: 3.5rem;
-    }
-    section h2 {
-      font-size: 2rem;
-    }
-    .feature {
-      flex: 1 1 100%;
-    }
-    main {
-      padding: 0 0.7rem;
-    }
-  }
-
-  /* Chat messages styling */
-  .chat-message {
-    padding: 0.7rem 1rem;
-    border-radius: 14px;
-    margin-bottom: 0.7rem;
-    max-width: 90%;
-    line-height: 1.4;
-    user-select: text;
-  }
-  .user-message {
-    background: #00ffff55;
-    color: #001010;
-    align-self: flex-end;
-    font-weight: bold;
-  }
-  body.light-mode .user-message {
-    background: #0077aa44;
-    color: #e0f0ff;
-  }
-  .bot-message {
-    background: #003344bb;
-    color: #a0f9ff;
-    font-style: italic;
-  }
-  body.light-mode .bot-message {
-    background: #a0c8e8cc;
-    color: #004466;
-    font-style: normal;
-  }
+  #chat-submit { background:#00ffffcc; color:#001010; font-weight:bold; border-radius:10px; border:none; padding:0 1.5rem; cursor:pointer; font-size:1.15rem; transition:0.2s; }
+  #chat-submit:hover { transform:scale(1.1); background:#00ffffee; }
+  body.light-mode #chat-submit { background:#0077aacc; color:#e0f0ff; }
 </style>
 </head>
 <body>
 
-<!-- Loader -->
 <div id="loader">WeCode 로딩 중...</div>
-
-<!-- Notice Bar -->
-<div class="notice-bar" role="region" aria-live="polite">
-  <marquee scrollamount="6" behavior="scroll" direction="left" onmouseover="this.stop()" onmouseout="this.start()" aria-label="공지사항">
-    🚨 새로운 V9 사이트 곧 오픈!!
-  </marquee>
-</div>
 
 <header>
   <h1 data-text="WECODE">WECODE</h1>
   <button id="theme-toggle" aria-label="테마 전환 버튼" aria-pressed="false">🌙 다크 모드</button>
   <p id="greeting" aria-live="polite" role="status"></p>
+  <a id="download-btn" href="files/wecode-pingpong.zip" download class="download-button" aria-label="WECODE 핑퐁 다운로드">🕹️ WECODE 핑퐁 다운로드</a>
 </header>
 
 <main>
@@ -483,22 +109,7 @@
     </div>
   </section>
 
-  <section tabindex="0" aria-label="철학과 가치">
-    <h2>🚧 철학과 가치</h2>
-    <ul>
-      <li>기술은 도구일 뿐, 사람을 위한 마음이 먼저입니다.</li>
-      <li>쉬운 기술, 모두를 위한 기술</li>
-      <li>실패를 두려워하지 않는 태도</li>
-      <li>재미있고 간단하지만 강력한 코드</li>
-    </ul>
-  </section>
-
-  <section tabindex="0" aria-label="실험하는 정신">
-    <h2>🧪 실험하는 정신</h2>
-    <p>WeCode는 매주 실험합니다. 게임 만들기, 앱 만들기, 웹 기술 깊게 배우기 등 다양한 프로젝트를 진행하며, 실패해도 멈추지 않습니다.</p>
-  </section>
-
-  <section id="chat-section" tabindex="0" aria-label="AI 채팅 봇">
+  <section tabindex="0" aria-label="AI 채팅 봇">
     <h2>🤖 WeCode AI 챗</h2>
     <div id="chat-box" role="log" aria-live="polite" aria-relevant="additions"></div>
     <form id="chat-form" aria-label="AI 채팅 입력 폼">
@@ -518,154 +129,28 @@
   </section>
 </main>
 
-<footer>
-  &copy; 2025 WeCode All rights reserved.
-</footer>
+<footer>&copy; 2025 WeCode All rights reserved.</footer>
 
 <script>
-  // Loader 숨기기
-  window.addEventListener('load', () => {
-    const loader = document.getElementById('loader');
-    loader.style.opacity = '0';
-    setTimeout(() => loader.style.display = 'none', 600);
-  });
+  // Loader
+  window.addEventListener('load',()=>{const loader=document.getElementById('loader');loader.style.opacity='0';setTimeout(()=>loader.style.display='none',600);});
 
-  // 테마 토글 기능
-  const themeToggleBtn = document.getElementById('theme-toggle');
-  const body = document.body;
+  // Theme
+  const themeBtn=document.getElementById('theme-toggle');const body=document.body;
+  function updateThemeUI(isDark){if(isDark){body.classList.remove('light-mode');themeBtn.textContent='🌙 다크 모드';themeBtn.setAttribute('aria-pressed','false');}else{body.classList.add('light-mode');themeBtn.textContent='☀️ 라이트 모드';themeBtn.setAttribute('aria-pressed','true');}}
+  const saved=localStorage.getItem('wecode-theme');updateThemeUI(saved!=='light');
+  themeBtn.addEventListener('click',()=>{const isLight=body.classList.toggle('light-mode');localStorage.setItem('wecode-theme',isLight?'light':'dark');updateThemeUI(!isLight);});
 
-  function updateThemeUI(isDark) {
-    if (isDark) {
-      body.classList.remove('light-mode');
-      themeToggleBtn.textContent = '🌙 다크 모드';
-      themeToggleBtn.setAttribute('aria-pressed', 'false');
-    } else {
-      body.classList.add('light-mode');
-      themeToggleBtn.textContent = '☀️ 라이트 모드';
-      themeToggleBtn.setAttribute('aria-pressed', 'true');
-    }
-  }
+  // Greeting
+  const greetingEl=document.getElementById('greeting');
+  const hour=(new Date()).getHours();greetingEl.textContent=hour>=5&&hour<12?'좋은 아침입니다! ☀️':hour>=12&&hour<18?'좋은 오후입니다! 🌤️':hour>=18&&hour<22?'좋은 저녁입니다! 🌙':'늦은 밤까지 수고 많으세요! 🌌';
 
-  // 로컬 스토리지에 테마 저장 및 불러오기
-  function loadTheme() {
-    const saved = localStorage.getItem('wecode-theme');
-    if (saved === 'light') {
-      updateThemeUI(false);
-    } else {
-      updateThemeUI(true);
-    }
-  }
-  loadTheme();
-
-  themeToggleBtn.addEventListener('click', () => {
-    const isLight = body.classList.toggle('light-mode');
-    localStorage.setItem('wecode-theme', isLight ? 'light' : 'dark');
-    updateThemeUI(!isLight);
-  });
-
-  // 시간대별 인사말
-  function updateGreeting() {
-    const greetingEl = document.getElementById('greeting');
-    const now = new Date();
-    const hour = now.getHours();
-    let greet = '어서오세요! WeCode에 방문해 주셔서 감사합니다.';
-
-    if (hour >= 5 && hour < 12) greet = '좋은 아침입니다! ☀️';
-    else if (hour >= 12 && hour < 18) greet = '좋은 오후입니다! 🌤️';
-    else if (hour >= 18 && hour < 22) greet = '좋은 저녁입니다! 🌙';
-    else greet = '늦은 밤까지 수고 많으세요! 🌌';
-
-    greetingEl.textContent = greet;
-  }
-  updateGreeting();
-
-  // AI 챗 봇 기능 (간단 업그레이드)
-  const chatBox = document.getElementById('chat-box');
-  const chatForm = document.getElementById('chat-form');
-  const chatInput = document.getElementById('chat-input');
-
-  // 답변 생성 함수
-  function generateBotReply(text) {
-    const t = text.toLowerCase().trim();
-
-    if (!t) return "질문을 입력해 주세요!";
-    if (/(안녕|hi|hello|헬로|하이)/.test(t)) return "안녕하세요! WeCode AI 챗입니다. 무엇을 도와드릴까요?";
-    if (/(문의|질문|help|도움)/.test(t)) return "궁금한 점을 구체적으로 말씀해 주세요! 최대한 도움을 드릴게요.";
-    if (/(테마|다크|라이트|모드)/.test(t)) return "우측 상단 '테마 전환' 버튼으로 쉽게 변경할 수 있습니다. 원하는 테마로 바꿔보세요!";
-    if (/(감사|고마워|thx)/.test(t)) return "천만에요! 언제든지 문의 주세요.";
-    if (/(로딩)/.test(t)) return "로딩 애니메이션은 사용자 경험을 좋게 해주죠! 멋진 아이디어입니다.";
-    if (/(기능|기술|개발)/.test(t)) return "WeCode는 사용자 친화적인 기술과 빠른 실행력을 중시합니다.";
-    return "죄송해요, 아직 배우는 중이라 정확한 답변을 못 드릴 수도 있어요. 다른 질문 부탁해요!";
-  }
-
-  // 타이핑 효과
-  function typeText(element, text, speed = 30) {
-    let i = 0;
-    element.textContent = '';
-    return new Promise(resolve => {
-      const interval = setInterval(() => {
-        element.textContent += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, speed);
-    });
-  }
-
-  // 챗폼 제출 이벤트
-  chatForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const userText = chatInput.value.trim();
-    if (!userText) return;
-
-    // 사용자 메시지
-    const userMsg = document.createElement('div');
-    userMsg.className = 'chat-message user-message';
-    userMsg.textContent = userText;
-    chatBox.appendChild(userMsg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    chatInput.value = '';
-    chatInput.disabled = true;
-    chatForm.querySelector('button').disabled = true;
-
-    // 로딩 메시지
-    const loadingMsg = document.createElement('div');
-    loadingMsg.className = 'chat-message bot-message';
-    loadingMsg.textContent = '🤖 WeCode AI: 생각 중...';
-    chatBox.appendChild(loadingMsg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    // 딜레이
-    await new Promise(r => setTimeout(r, 900));
-
-    // 답변 생성
-    const botReplyText = generateBotReply(userText);
-
-    // 로딩 메시지 제거
-    chatBox.removeChild(loadingMsg);
-
-    // 답변 메시지 생성 및 타이핑 출력
-    const botMsg = document.createElement('div');
-    botMsg.className = 'chat-message bot-message';
-    chatBox.appendChild(botMsg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-    await typeText(botMsg, `🤖 WeCode AI: ${botReplyText}`, 30);
-
-    chatInput.disabled = false;
-    chatForm.querySelector('button').disabled = false;
-    chatInput.focus();
-  });
-
-  // 문의 폼 제출 이벤트 (간단히 alert로 대체)
-  document.querySelector('.contact-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('문의가 정상적으로 접수되었습니다! 빠른 시일 내에 답변드리겠습니다.');
-    e.target.reset();
-  });
+  // Chatbot
+  const chatBox=document.getElementById('chat-box');
+  const chatForm=document.getElementById('chat-form');
+  const chatInput=document.getElementById('chat-input');
+  function generateBotReply(text){const t=text.toLowerCase().trim();if(!t)return "질문을 입력해 주세요!";if(/(안녕|hi|hello|헬로|하이)/.test(t))return "안녕하세요! WeCode AI 챗입니다! 😊";if(/(잘가|bye|바이)/.test(t))return "안녕히 가세요! 👋";return "죄송해요, 그 부분은 아직 배우는 중이에요. 🙏";}
+  chatForm.addEventListener('submit',e=>{e.preventDefault();const userMsg=chatInput.value.trim();if(!userMsg)return;chatBox.innerHTML+=`💬 ${userMsg}\n`;chatInput.value='';setTimeout(()=>{const reply=generateBotReply(userMsg);chatBox.innerHTML+=`🤖 ${reply}\n`;chatBox.scrollTop=chatBox.scrollHeight;},400);});
 </script>
-
 </body>
 </html>
